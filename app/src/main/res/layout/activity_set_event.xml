@@ -7,21 +7,90 @@
     tools:context=".SetEvent">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/meetingNameTitle"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/meetingName"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.textfield.TextInputEditText
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-        android:hint="Meeting Name"
-        />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/meetingNameValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Meeting Name" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/startTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/endTime"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/meetingNameTitle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/startValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Start Time" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/endTime"
+        android:layout_width="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/startTime"
+        app:layout_constraintTop_toBottomOf="@id/meetingNameTitle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/endValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="End Time" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/setDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Date"
+        android:padding="10.dp"
+        app:layout_constraintTop_toBottomOf="@id/endTime"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/text_background"
+
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set Event"
+        android:layout_marginTop="30.dp"
+        app:layout_constraintTop_toBottomOf="@id/setDate"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
