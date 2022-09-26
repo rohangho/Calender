@@ -9,7 +9,7 @@ import javax.inject.Inject
 class InsertRepository @Inject constructor(private val roomInstance: MeetingDatabase) {
 
     fun insertData(startDate: Date, endDate: Date) {
-        roomInstance.insertMeeting().insertDb(DbModel("fd", startDate, endDate))
+        roomInstance.meetingDao().insertDb(DbModel("fd", startDate, endDate))
 
     }
 

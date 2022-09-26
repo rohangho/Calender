@@ -7,5 +7,5 @@ import androidx.room.TypeConverters
 @Database(entities = [DbModel::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class MeetingDatabase: RoomDatabase() {
-    abstract fun insertMeeting(): DataDao
+    abstract fun meetingDao(): DataDao
 }
