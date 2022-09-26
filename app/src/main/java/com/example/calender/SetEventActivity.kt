@@ -21,13 +21,13 @@ class SetEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     @Inject
     lateinit var viewModeFactory: ViewModelProvider.Factory
     private lateinit var mainViewModel: SetViewModel
-    var startTimeHrs = 0
-    var endTimeHrs = 0
-    var startTimeMin = 0
-    var endTimeMin = 0
-    var date = 0
-    var month = 0
-    var year = 0
+    var startTimeHrs = -1
+    var endTimeHrs = -1
+    var startTimeMin = -1
+    var endTimeMin = -1
+    var date = -1
+    var month = -1
+    var year = -1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,16 +47,39 @@ class SetEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     }
 
     private fun checkValidity() {
-        if (startTimeHrs == 0 || endTimeHrs == 0 || startTimeMin == 0 || endTimeMin == 0 || date == 0 || month == 0 || year == 0) {
+        if (startTimeHrs == -1 || endTimeHrs == -1 || startTimeMin == -1 || endTimeMin == -1 || date == -1 || month == -1 || year == -1) {
             Toast.makeText(this, "Please fill all the data", Toast.LENGTH_SHORT).show()
         } else {
-            mainViewModel.insertMeetingDetail(
-                Date(year, month, date, startTimeHrs, startTimeMin),
-                Date(year, month, date, endTimeHrs, endTimeMin)
-            )
-            finish()
+            if (Date().time > Date(
+                    year,
+                    month,
+                    date,
+                    startTimeHrs,
+                    startTimeMin
+                ).time || Date().time > Date(
+                    year,
+                    month,
+                    date,
+                    endTimeHrs,
+                    endTimeMin
+                ).time || Date(year, month, date, startTimeHrs, startTimeMin).time > Date(
+                    year,
+                    month,
+                    date,
+                    endTimeHrs,
+                    endTimeMin
+                ).time
+            ) {
+                Toast.makeText(this, "Enter valid time", Toast.LENGTH_SHORT).show()
+            } else {
+                mainViewModel.insertMeetingDetail(
+                    Date(year, month, date, startTimeHrs, startTimeMin - 1900),
+                    Date(year, month, date, endTimeHrs, endTimeMin - 1900)
+                )
+            }
 
         }
+
     }
 
     private fun setTimeListner() {

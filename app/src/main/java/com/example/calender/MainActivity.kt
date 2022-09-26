@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getAllList() {
-        lifecycleScope.launch { }
-        meetingDatabase.meetingDao().getAllQueryResult(Date())
+        lifecycleScope.launch {
+            meetingDatabase.meetingDao().getAllQueryResult(Date())
+        }
     }
 }
