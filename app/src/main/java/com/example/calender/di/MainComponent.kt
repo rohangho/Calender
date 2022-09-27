@@ -1,7 +1,7 @@
 package com.example.calender.di
 
-import com.example.calender.MainActivity
-import com.example.calender.SetEventActivity
+import com.example.calender.presentation.MainActivity
+import com.example.calender.presentation.SetEventActivity
 import dagger.Component
 import javax.inject.Singleton
 

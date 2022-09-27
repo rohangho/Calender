@@ -1,4 +1,4 @@
-package com.example.calender
+package com.example.calender.presentation
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -43,7 +43,17 @@ class SetEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             checkValidity()
         }
 
+        setObServer()
 
+    }
+
+    private fun setObServer() {
+        mainViewModel.status.observe(this) {
+            if (it.equals("Success"))
+                finish()
+            else
+                Toast.makeText(this, "Time Already filled", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun checkValidity() {
@@ -73,6 +83,7 @@ class SetEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
                 Toast.makeText(this, "Enter valid time", Toast.LENGTH_SHORT).show()
             } else {
                 mainViewModel.insertMeetingDetail(
+                    binding.meetingNameValue.text.toString(),
                     Date(year, month, date, startTimeHrs, startTimeMin - 1900),
                     Date(year, month, date, endTimeHrs, endTimeMin - 1900)
                 )
