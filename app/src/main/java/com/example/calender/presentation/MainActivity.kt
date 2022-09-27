@@ -1,5 +1,6 @@
 package com.example.calender.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,6 +30,10 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         initRecyclerView()
+
+        binding.addNewEvent.setOnClickListener {
+            startActivity(Intent(this, SetEventActivity::class.java))
+        }
 
     }
 
