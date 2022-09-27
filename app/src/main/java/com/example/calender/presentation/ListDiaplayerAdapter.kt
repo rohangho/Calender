@@ -30,6 +30,7 @@ class ListDiaplayerAdapter(private val context: Context) :
 
     fun updateList(updatedTimeList: List<DbModel>) {
         this.timeList = updatedTimeList
+        notifyDataSetChanged()
 
     }
 

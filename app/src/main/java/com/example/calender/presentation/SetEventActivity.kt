@@ -47,6 +47,7 @@ class SetEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
     }
 
+
     private fun setObServer() {
         mainViewModel.status.observe(this) {
             if (it.equals("Success"))
