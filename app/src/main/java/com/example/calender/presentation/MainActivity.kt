@@ -9,6 +9,7 @@ import com.example.calender.db.DbModel
 import com.example.calender.db.MeetingDatabase
 import com.example.calender.di.DaggerMainComponent
 import com.example.calender.di.RoomModule
+import com.example.calender.model.Header
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -59,9 +60,31 @@ class MainActivity : AppCompatActivity() {
                     listOfUpdatedData.add(listOfData[i])
                 }
             }
+            val hashMap = HashMap<String, MutableList<DbModel>>()
+
+            for (i in 0 until listOfUpdatedData.size) {
+                if (!hashMap.contains(listOfUpdatedData[i].startTime.date.toString() + "/" + listOfUpdatedData[i].startTime.month.toString()))
+                    hashMap[listOfUpdatedData[i].startTime.date.toString() + "/" + listOfUpdatedData[i].startTime.month.toString()] =
+                        arrayListOf(listOfUpdatedData[i])
+                else
+                    hashMap[listOfUpdatedData[i].startTime.date.toString() + "/" + listOfUpdatedData[i].startTime.month.toString()]?.add(
+                        listOfUpdatedData[i]
+                    )
+            }
+
+            val listofDateAndDetail = mutableListOf<Any>()
+
+            hashMap.forEach { (key, value) ->
+                listofDateAndDetail.add(Header(key))
+                for (i in 0 until value.size)
+                    listofDateAndDetail.add(value[i])
+            }
+
+
+
 
             withContext(Dispatchers.Main) {
-                listDatabaseAdapter.updateList(listOfUpdatedData)
+                listDatabaseAdapter.updateList(listofDateAndDetail)
             }
         }
     }
