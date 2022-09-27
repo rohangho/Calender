@@ -5,12 +5,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.calender.databinding.ActivityMainBinding
+import com.example.calender.db.DbModel
 import com.example.calender.db.MeetingDatabase
 import com.example.calender.di.DaggerMainComponent
 import com.example.calender.di.RoomModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import javax.inject.Inject
 
@@ -50,16 +52,17 @@ class MainActivity : AppCompatActivity() {
     private fun getAllList() {
         CoroutineScope(Dispatchers.IO).launch {
             val listOfData = meetingDatabase.meetingDao().getAllQueryResult()
-            val poistionOfUnwatedMeeting = ArrayList<Int>()
+            val listOfUpdatedData = arrayListOf<DbModel>()
             for (i in 0 until listOfData.size) {
-                if (listOfData[i].endTime.time <= Date().time)
-                    poistionOfUnwatedMeeting.add(i)
+                listOfData[i].endTime.year = listOfData[i].endTime.year - 1900
+                if (listOfData[i].endTime.time >= Date().time) {
+                    listOfUpdatedData.add(listOfData[i])
+                }
             }
-            for (i in 0 until poistionOfUnwatedMeeting.size) {
-                listOfData.removeAt(index = poistionOfUnwatedMeeting[i])
-            }
-            listDatabaseAdapter.updateList(listOfData)
 
+            withContext(Dispatchers.Main) {
+                listDatabaseAdapter.updateList(listOfUpdatedData)
+            }
         }
     }
 }
