@@ -1,5 +1,6 @@
 package com.example.calender.presentation
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -75,11 +76,16 @@ class ListDiaplayerAdapter(private val context: Context) :
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (holder.itemViewType == 1)
             (holder as HeaderViewHolder).headerList.text = (timeList.get(position) as Header).date
         else
             (holder as DataViewHolder).timeList.text =
-                (timeList.get(position) as DbModel).meetingName
+                (timeList.get(position) as DbModel).meetingName + ": " + (timeList.get(position) as DbModel).startTime.hours.toString() + ":" + (timeList.get(
+                    position
+                ) as DbModel).startTime.minutes.toString() + "hrs - " + (timeList.get(position) as DbModel).endTime.hours.toString() + ":" + (timeList.get(
+                    position
+                ) as DbModel).endTime.minutes.toString() + "hrs"
     }
 }

@@ -14,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -55,19 +56,23 @@ class MainActivity : AppCompatActivity() {
             val listOfData = meetingDatabase.meetingDao().getAllQueryResult()
             val listOfUpdatedData = arrayListOf<DbModel>()
             for (i in 0 until listOfData.size) {
-                listOfData[i].endTime.year = listOfData[i].endTime.year - 1900
-                if (listOfData[i].endTime.time >= Date().time) {
+                if (listOfData[i].endTime.after(Date())) {
                     listOfUpdatedData.add(listOfData[i])
                 }
             }
+
             val hashMap = HashMap<String, MutableList<DbModel>>()
 
             for (i in 0 until listOfUpdatedData.size) {
                 if (!hashMap.contains(listOfUpdatedData[i].startTime.date.toString() + "/" + listOfUpdatedData[i].startTime.month.toString()))
-                    hashMap[listOfUpdatedData[i].startTime.date.toString() + "/" + listOfUpdatedData[i].startTime.month.toString()] =
+                    hashMap[listOfUpdatedData[i].startTime.date.toString() + " " + SimpleDateFormat(
+                        "MMM"
+                    ).format(listOfUpdatedData[i].startTime.month)] =
                         arrayListOf(listOfUpdatedData[i])
                 else
-                    hashMap[listOfUpdatedData[i].startTime.date.toString() + "/" + listOfUpdatedData[i].startTime.month.toString()]?.add(
+                    hashMap[listOfUpdatedData[i].startTime.date.toString() + " " + SimpleDateFormat(
+                        "MMM"
+                    ).format(listOfUpdatedData[i].startTime.month)]?.add(
                         listOfUpdatedData[i]
                     )
             }

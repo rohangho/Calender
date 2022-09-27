@@ -85,8 +85,8 @@ class SetEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             } else {
                 mainViewModel.insertMeetingDetail(
                     binding.meetingNameValue.text.toString(),
-                    Date(year, month, date, startTimeHrs, startTimeMin - 1900),
-                    Date(year, month, date, endTimeHrs, endTimeMin - 1900)
+                    Date(year - 1900, month, date, startTimeHrs, startTimeMin),
+                    Date(year - 1900, month, date, endTimeHrs, endTimeMin)
                 )
             }
 
